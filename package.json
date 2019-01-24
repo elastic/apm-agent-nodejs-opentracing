@@ -1,0 +1,44 @@
+{
+  "name": "elastic-apm-node-opentracing",
+  "version": "0.0.0",
+  "description": "An OpenTracing bridge for the Elastic APM Node.js Agent",
+  "main": "lib/tracer.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "standard && mocha test/opentracing/index.js && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elastic/apm-agent-nodejs-opentracing.git"
+  },
+  "dependencies": {
+    "opentracing": "^0.14.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "elastic-apm-node": "^2.4.0",
+    "mocha": "^5.2.0",
+    "standard": "^12.0.1",
+    "tape": "^4.9.2"
+  },
+  "peerDependencies": {
+    "elastic-apm-node": "^2.4.0"
+  },
+  "keywords": [
+    "elastic",
+    "elasticapm",
+    "apm",
+    "opentracing",
+    "ot",
+    "distributed",
+    "tracing"
+  ],
+  "author": "Thomas Watson <w@tson.dk> (https://twitter.com/wa7son)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/elastic/apm-agent-nodejs-opentracing/issues"
+  },
+  "homepage": "https://github.com/elastic/apm-agent-nodejs-opentracing#readme"
+}
