@@ -305,3 +305,46 @@ test('#startSpan() - ended transaction', setup(function (t) {
   t.equal(span2.context()._context.parentId, undefined)
   t.end()
 }))
+
+test('#extract(http, undefined)', setup(function (t) {
+  const tracer = new Tracer(getAgent())
+  const context = tracer.extract(opentracing.FORMAT_HTTP_HEADERS)
+  t.equal(context, null)
+  t.end()
+}))
+
+test('#extract(http, {})', setup(function (t) {
+  const tracer = new Tracer(getAgent())
+  const context = tracer.extract(opentracing.FORMAT_HTTP_HEADERS, {})
+  t.equal(context, null)
+  t.end()
+}))
+
+test('#extract(http, {elastic-apm-traceparent: null})', setup(function (t) {
+  const tracer = new Tracer(getAgent())
+  const context = tracer.extract(opentracing.FORMAT_HTTP_HEADERS, {
+    'elastic-apm-traceparent': null
+  })
+  t.equal(context, null)
+  t.end()
+}))
+
+// TODO: Currently the header string isn't validated. This might not be an issue though
+test.skip('#extract(http, {elastic-apm-traceparent: invalid})', setup(function (t) {
+  const tracer = new Tracer(getAgent())
+  const context = tracer.extract(opentracing.FORMAT_HTTP_HEADERS, {
+    'elastic-apm-traceparent': 'invalid'
+  })
+  t.equal(context, null)
+  t.end()
+}))
+
+test('#extract(http, {elastic-apm-traceparent: valid})', setup(function (t) {
+  const tracer = new Tracer(getAgent())
+  const context = tracer.extract(opentracing.FORMAT_HTTP_HEADERS, {
+    'elastic-apm-traceparent': '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01'
+  })
+  t.ok(context instanceof SpanContext)
+  t.equal(context.toString(), '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01')
+  t.end()
+}))
