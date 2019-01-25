@@ -36,13 +36,13 @@ span.finish()
 
 ### `tracer = new Tracer(agent)`
 
-This modules exposes a `Tracer` class which is OpenTracing compatible.
+This module exposes a `Tracer` class which is OpenTracing compatible.
 
 When instantiating the `Tracer` object,
 an instance of the Elastic APM Node.js Agent must be provided as its only argument.
 
 For details about the `tracer` API,
-see the [opentracing-javescript](https://github.com/opentracing/opentracing-javascript) API docs.
+see the [`opentracing-javescript` API docs](https://opentracing-javascript.surge.sh/).
 
 ## License
 
