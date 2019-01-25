@@ -6,6 +6,7 @@ const test = require('tape')
 const { setup, getAgent } = require('./utils')
 const Tracer = require('..')
 const SpanContext = require('../lib/span_context')
+const UnsampledSpan = require('../lib/unsampled_span')
 
 test('should throw if not given an agent', setup(function (t) {
   t.throws(function () {
@@ -30,6 +31,7 @@ test('#startSpan()', setup(function (t) {
   t.ok(span1._span, 'should hold reference to span/transaction')
   t.equal(span1._span.name, 'unnamed', 'should fall back to default name')
   t.equal(span1._span.type, 'custom', 'should fall back to default type')
+  t.equal(span1._span.sampled, true)
 
   const span2 = tracer.startSpan()
 
@@ -304,6 +306,79 @@ test('#startSpan() - ended transaction', setup(function (t) {
   t.equal(span2._isTransaction, true)
   t.equal(span1.context()._context.parentId, undefined)
   t.equal(span2.context()._context.parentId, undefined)
+  t.end()
+}))
+
+test('#startSpan() - not sampled', setup(function (t) {
+  const agent = getAgent()
+  agent._conf.transactionSampleRate = 0
+
+  const tracer = new Tracer(agent)
+  const span1 = tracer.startSpan()
+
+  t.ok(span1, 'should return span')
+  t.ok(span1._span, 'should hold reference to span/transaction')
+  t.equal(span1._isTransaction, true, 'first span should be a transaction')
+  t.equal(span1._span.sampled, false)
+
+  const span2 = tracer.startSpan()
+
+  t.ok(span2 instanceof UnsampledSpan)
+
+  agent._conf.transactionSampleRate = 1
+
+  t.end()
+}))
+
+test('#inject(span, http, undefined)', setup(function (t) {
+  const tracer = new Tracer(getAgent())
+  const span = tracer.startSpan('foo')
+  // TODO: Is this expected?
+  t.throws(function () {
+    tracer.inject(span, opentracing.FORMAT_HTTP_HEADERS)
+  })
+  t.end()
+}))
+
+test('#inject(span, http, {})', setup(function (t) {
+  const tracer = new Tracer(getAgent())
+  const span = tracer.startSpan('foo')
+  const carrier = {}
+  tracer.inject(span, opentracing.FORMAT_HTTP_HEADERS, carrier)
+  t.equal(carrier['elastic-apm-traceparent'], span.context().toString())
+  t.end()
+}))
+
+test('#inject(context, http, {})', setup(function (t) {
+  const tracer = new Tracer(getAgent())
+  const span = tracer.startSpan('foo')
+  const carrier = {}
+  tracer.inject(span.context(), opentracing.FORMAT_HTTP_HEADERS, carrier)
+  t.equal(carrier['elastic-apm-traceparent'], span.context().toString())
+  t.end()
+}))
+
+test('#inject(noop, http, {})', setup(function (t) {
+  const agent = getAgent()
+  agent._conf.transactionSampleRate = 0
+
+  const tracer = new Tracer(agent)
+
+  const span1 = tracer.startSpan('foo')
+  t.equal(span1._isTransaction, true)
+  t.equal(span1._span.sampled, false)
+
+  const span2 = tracer.startSpan('foo')
+  t.ok(span2 instanceof UnsampledSpan)
+
+  const carrier = {}
+
+  tracer.inject(span2, opentracing.FORMAT_HTTP_HEADERS, carrier)
+
+  t.equal(carrier['elastic-apm-traceparent'], span1.context().toString())
+
+  agent._conf.transactionSampleRate = 1
+
   t.end()
 }))
 
