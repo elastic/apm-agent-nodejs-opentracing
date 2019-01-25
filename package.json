@@ -1,6 +1,6 @@
 {
   "name": "elastic-apm-node-opentracing",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "An OpenTracing bridge for the Elastic APM Node.js Agent",
   "main": "lib/tracer.js",
   "directories": {
@@ -40,5 +40,9 @@
   "bugs": {
     "url": "https://github.com/elastic/apm-agent-nodejs-opentracing/issues"
   },
-  "homepage": "https://github.com/elastic/apm-agent-nodejs-opentracing#readme"
+  "homepage": "https://github.com/elastic/apm-agent-nodejs-opentracing#readme",
+  "coordinates": [
+    55.6809581,
+    12.5643788
+  ]
 }
