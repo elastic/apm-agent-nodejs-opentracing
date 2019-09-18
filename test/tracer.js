@@ -83,7 +83,7 @@ test('#startSpan(name, {tags: {...}})', setup(function (t) {
   t.equal(span._span.name, 'foo', 'should use given name')
   t.equal(span._span.type, 'bar', 'should use given type')
 
-  t.deepEqual(span._span._tags, {
+  t.deepEqual(span._span._labels, {
     a: '1',
     a_b: '4'
   }, 'should set expected tags')
