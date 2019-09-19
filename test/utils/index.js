@@ -1,6 +1,10 @@
 'use strict'
 
-const agent = require('elastic-apm-node').start({ captureExceptions: false })
+const agent = require('elastic-apm-node').start({
+  captureExceptions: false,
+  centralConfig: false,
+  metricsInterval: 0
+})
 
 exports.setup = setup
 exports.getAgent = getAgent

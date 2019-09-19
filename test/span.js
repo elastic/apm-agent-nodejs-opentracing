@@ -35,7 +35,7 @@ test('tags', setup(function (t) {
 
   span.addTags(tags)
 
-  t.deepEqual(span._span._tags, {
+  t.deepEqual(span._span._labels, {
     a: '1',
     a_b: '4'
   }, 'should set expected tags')
@@ -55,7 +55,7 @@ test('tag: type', setup(function (t) {
   const span = tracer.startSpan()
   span.setTag('type', 'foo')
   t.equal(span._span.type, 'foo')
-  t.equal(span._span._tags, null)
+  t.equal(span._span._labels, null)
   t.end()
 }))
 
@@ -64,7 +64,7 @@ test('tag: result', setup(function (t) {
   const span = tracer.startSpan()
   span.setTag('result', 'foo')
   t.equal(span._span.result, 'foo')
-  t.equal(span._span._tags, null)
+  t.equal(span._span._labels, null)
   t.end()
 }))
 
@@ -73,7 +73,7 @@ test('tag: http.status_code', setup(function (t) {
   const span = tracer.startSpan()
   span.setTag('http.status_code', 200)
   t.equal(span._span.result, 'HTTP 2xx')
-  t.equal(span._span._tags, null)
+  t.equal(span._span._labels, null)
   t.end()
 }))
 
@@ -90,7 +90,7 @@ test('tag: user.*', setup(function (t) {
     username: 'bar',
     email: 'baz'
   })
-  t.equal(span._span._tags, null)
+  t.equal(span._span._labels, null)
   t.end()
 }))
 
@@ -104,7 +104,7 @@ test('log - error, but no details', setup(function (t) {
 
   const span = tracer.startSpan()
   span.log({ event: 'error' })
-  t.equal(span._span._tags, null)
+  t.equal(span._span._labels, null)
 
   tracer._agent.captureError = captureError
   t.end()
@@ -125,7 +125,7 @@ test('log - error, with error object', setup(function (t) {
 
   const span = tracer.startSpan()
   span.log({ event: 'error', 'error.object': error })
-  t.equal(span._span._tags, null)
+  t.equal(span._span._labels, null)
 
   tracer._agent.captureError = captureError
   t.end()
@@ -143,7 +143,7 @@ test('log - error, with string message', setup(function (t) {
 
   const span = tracer.startSpan()
   span.log({ event: 'error', message: error })
-  t.equal(span._span._tags, null)
+  t.equal(span._span._labels, null)
 
   tracer._agent.captureError = captureError
   t.end()
@@ -166,7 +166,7 @@ test('log - error, with error object + timestamp', setup(function (t) {
 
   const span = tracer.startSpan()
   span.log({ event: 'error', 'error.object': error }, timestamp)
-  t.equal(span._span._tags, null)
+  t.equal(span._span._labels, null)
 
   tracer._agent.captureError = captureError
   t.end()
@@ -186,7 +186,7 @@ test('log - error, with string message + timestamp', setup(function (t) {
 
   const span = tracer.startSpan()
   span.log({ event: 'error', message: error }, timestamp)
-  t.equal(span._span._tags, null)
+  t.equal(span._span._labels, null)
 
   tracer._agent.captureError = captureError
   t.end()
@@ -210,7 +210,7 @@ test('log - error, with error object + message + timestamp', setup(function (t) 
 
   const span = tracer.startSpan()
   span.log({ event: 'error', 'error.object': error, message }, timestamp)
-  t.equal(span._span._tags, null)
+  t.equal(span._span._labels, null)
 
   tracer._agent.captureError = captureError
   t.end()

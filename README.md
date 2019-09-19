@@ -10,6 +10,8 @@ An [OpenTracing](https://opentracing.io/) bridge for the [Elastic APM Node.js Ag
 
 This module have [`elastic-apm-node`](https://www.npmjs.com/package/elastic-apm-node) as a peer dependency.
 
+Version 2.10.0 or higher of the Elastic APM Agent is required in order to use this module.
+
 ## Installation
 
 ```
