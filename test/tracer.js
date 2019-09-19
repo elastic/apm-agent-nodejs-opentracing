@@ -119,31 +119,28 @@ test('#startSpan() - implicit children', setup(function (t) {
   t.equal(span2._isTransaction, false)
   t.equal(span3._isTransaction, false)
 
-  const span1Context = span1.context()._context
-  const span2Context = span2.context()._context
-  const span3Context = span3.context()._context
+  const _span1 = span1.context()._context
+  const _span2 = span2.context()._context
+  const _span3 = span3.context()._context
 
-  t.equal(span1Context.version, '00')
-  t.ok(typeof span1Context.traceId, 'string')
-  t.ok(typeof span1Context.id, 'string')
-  t.equal(span1Context.flags, '01')
+  t.ok(typeof _span1.traceId, 'string')
+  t.ok(typeof _span1.id, 'string')
+  t.equal(_span1.sampled, true)
 
   // span1 should be the root
-  t.equal(span1Context.parentId, undefined)
+  t.equal(_span1.parentId, undefined)
 
   // span2 should be a child of span1
-  t.equal(span2Context.version, span1Context.version)
-  t.equal(span2Context.traceId, span1Context.traceId)
-  t.notEqual(span2Context.id, span1Context.id)
-  t.equal(span2Context.parentId, span1Context.id)
-  t.equal(span2Context.flags, span1Context.flags)
+  t.equal(_span2.traceId, _span1.traceId, 'span 2 should have expected traceId')
+  t.notEqual(_span2.id, _span1.id, 'span 2 should have expected id')
+  t.equal(_span2.parentId, _span1.id, 'span 2 should have expected parentId')
+  t.equal(_span2.sampled, _span1.sampled, 'span 2 should have expected sampled flag')
 
   // span3 should be a child of span1
-  t.equal(span3Context.version, span1Context.version)
-  t.equal(span3Context.traceId, span1Context.traceId)
-  t.notEqual(span3Context.id, span1Context.id)
-  t.equal(span3Context.parentId, span1Context.id)
-  t.equal(span3Context.flags, span1Context.flags)
+  t.equal(_span3.traceId, _span1.traceId, 'span 3 should have expected traceId')
+  t.notEqual(_span3.id, _span1.id, 'span 3 should have expected id')
+  t.equal(_span3.parentId, _span1.id, 'span 3 should have expected parentId')
+  t.equal(_span3.sampled, _span1.sampled, 'span 3 should have expected sampled flag')
 
   t.end()
 }))
@@ -158,31 +155,28 @@ test('#startSpan(name, {childOf})', setup(function (t) {
   t.equal(span2._isTransaction, false)
   t.equal(span3._isTransaction, false)
 
-  const span1Context = span1.context()._context
-  const span2Context = span2.context()._context
-  const span3Context = span3.context()._context
+  const _span1 = span1.context()._context
+  const _span2 = span2.context()._context
+  const _span3 = span3.context()._context
 
-  t.equal(span1Context.version, '00')
-  t.ok(typeof span1Context.traceId, 'string')
-  t.ok(typeof span1Context.id, 'string')
-  t.equal(span1Context.flags, '01')
+  t.ok(typeof _span1.traceId, 'string')
+  t.ok(typeof _span1.id, 'string')
+  t.equal(_span1.sampled, true)
 
   // span1 should be the root
-  t.equal(span1Context.parentId, undefined)
+  t.equal(_span1.parentId, undefined)
 
   // span2 should be a child of span1
-  t.equal(span2Context.version, span1Context.version)
-  t.equal(span2Context.traceId, span1Context.traceId)
-  t.notEqual(span2Context.id, span1Context.id)
-  t.equal(span2Context.parentId, span1Context.id)
-  t.equal(span2Context.flags, span1Context.flags)
+  t.equal(_span2.traceId, _span1.traceId, 'span 2 should have expected traceId')
+  t.notEqual(_span2.id, _span1.id, 'span 2 should have expected id')
+  t.equal(_span2.parentId, _span1.id, 'span 2 should have expected parentId')
+  t.equal(_span2.sampled, _span1.sampled, 'span 2 should have expected sampled flag')
 
   // span3 should be a child of span2
-  t.equal(span3Context.version, span2Context.version)
-  t.equal(span3Context.traceId, span2Context.traceId)
-  t.notEqual(span3Context.id, span2Context.id)
-  t.equal(span3Context.parentId, span2Context.id)
-  t.equal(span3Context.flags, span2Context.flags)
+  t.equal(_span3.traceId, _span2.traceId, 'span 3 should have expected traceId')
+  t.notEqual(_span3.id, _span2.id, 'span 3 should have expected id')
+  t.equal(_span3.parentId, _span2.id, 'span 3 should have expected parentId')
+  t.equal(_span3.sampled, _span2.sampled, 'span 3 should have expected sampled flag')
 
   t.end()
 }))
@@ -200,31 +194,28 @@ test('#startSpan(name, {references: [childOf]})', setup(function (t) {
   t.equal(span2._isTransaction, false)
   t.equal(span3._isTransaction, false)
 
-  const span1Context = span1.context()._context
-  const span2Context = span2.context()._context
-  const span3Context = span3.context()._context
+  const _span1 = span1.context()._context
+  const _span2 = span2.context()._context
+  const _span3 = span3.context()._context
 
-  t.equal(span1Context.version, '00')
-  t.ok(typeof span1Context.traceId, 'string')
-  t.ok(typeof span1Context.id, 'string')
-  t.equal(span1Context.flags, '01')
+  t.ok(typeof _span1.traceId, 'string')
+  t.ok(typeof _span1.id, 'string')
+  t.equal(_span1.sampled, true)
 
   // span1 should be the root
-  t.equal(span1Context.parentId, undefined)
+  t.equal(_span1.parentId, undefined)
 
   // span2 should be a child of span1
-  t.equal(span2Context.version, span1Context.version)
-  t.equal(span2Context.traceId, span1Context.traceId)
-  t.notEqual(span2Context.id, span1Context.id)
-  t.equal(span2Context.parentId, span1Context.id)
-  t.equal(span2Context.flags, span1Context.flags)
+  t.equal(_span2.traceId, _span1.traceId, 'span 2 should have expected traceId')
+  t.notEqual(_span2.id, _span1.id, 'span 2 should have expected id')
+  t.equal(_span2.parentId, _span1.id, 'span 2 should have expected parentId')
+  t.equal(_span2.sampled, _span1.sampled, 'span 2 should have expected sampled flag')
 
   // span3 should be a child of span2
-  t.equal(span3Context.version, span2Context.version)
-  t.equal(span3Context.traceId, span2Context.traceId)
-  t.notEqual(span3Context.id, span2Context.id)
-  t.equal(span3Context.parentId, span2Context.id)
-  t.equal(span3Context.flags, span2Context.flags)
+  t.equal(_span3.traceId, _span2.traceId, 'span 3 should have expected traceId')
+  t.notEqual(_span3.id, _span2.id, 'span 3 should have expected id')
+  t.equal(_span3.parentId, _span2.id, 'span 3 should have expected parentId')
+  t.equal(_span3.sampled, _span2.sampled, 'span 3 should have expected sampled flag')
 
   t.end()
 }))
@@ -240,13 +231,13 @@ test.skip('#startSpan(name, {references: [followsFrom]})', setup(function (t) {
   ]
   const span2 = tracer.startSpan('bar', { references })
 
-  const span1Context = span1.context()._context
-  const span2Context = span2.context()._context
+  const _span1 = span1.context()._context
+  const _span2 = span2.context()._context
 
-  t.notEqual(span1Context.traceId, span1Context.traceId)
-  t.notEqual(span1Context.id, span1Context.id)
-  t.equal(span2Context.parentId, undefined)
-  t.equal(span1Context.parentId, undefined)
+  t.notEqual(_span1.traceId, _span1.traceId)
+  t.notEqual(_span1.id, _span1.id)
+  t.equal(_span2.parentId, undefined)
+  t.equal(_span1.parentId, undefined)
   t.end()
 }))
 
@@ -265,31 +256,28 @@ test('#startSpan(name, {references: [followsFrom, childOf, childOf]})', setup(fu
   t.equal(span2._isTransaction, false)
   t.equal(span3._isTransaction, false)
 
-  const span1Context = span1.context()._context
-  const span2Context = span2.context()._context
-  const span3Context = span3.context()._context
+  const _span1 = span1.context()._context
+  const _span2 = span2.context()._context
+  const _span3 = span3.context()._context
 
-  t.equal(span1Context.version, '00')
-  t.ok(typeof span1Context.traceId, 'string')
-  t.ok(typeof span1Context.id, 'string')
-  t.equal(span1Context.flags, '01')
+  t.ok(typeof _span1.traceId, 'string')
+  t.ok(typeof _span1.id, 'string')
+  t.equal(_span1.sampled, true)
 
   // span1 should be the root
-  t.equal(span1Context.parentId, undefined)
+  t.equal(_span1.parentId, undefined)
 
   // span2 should be a child of span1
-  t.equal(span2Context.version, span1Context.version)
-  t.equal(span2Context.traceId, span1Context.traceId)
-  t.notEqual(span2Context.id, span1Context.id)
-  t.equal(span2Context.parentId, span1Context.id)
-  t.equal(span2Context.flags, span1Context.flags)
+  t.equal(_span2.traceId, _span1.traceId, 'span 2 should have expected traceId')
+  t.notEqual(_span2.id, _span1.id, 'span 2 should have expected id')
+  t.equal(_span2.parentId, _span1.id, 'span 2 should have expected parentId')
+  t.equal(_span2.sampled, _span1.sampled, 'span 2 should have expected sampled flag')
 
   // span3 should be a child of span2
-  t.equal(span3Context.version, span2Context.version)
-  t.equal(span3Context.traceId, span2Context.traceId)
-  t.notEqual(span3Context.id, span2Context.id)
-  t.equal(span3Context.parentId, span2Context.id)
-  t.equal(span3Context.flags, span2Context.flags)
+  t.equal(_span3.traceId, _span2.traceId, 'span 3 should have expected traceId')
+  t.notEqual(_span3.id, _span2.id, 'span 3 should have expected id')
+  t.equal(_span3.parentId, _span2.id, 'span 3 should have expected parentId')
+  t.equal(_span3.sampled, _span2.sampled, 'span 3 should have expected sampled flag')
 
   t.end()
 }))
