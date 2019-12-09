@@ -1,0 +1,5 @@
+---
+- job:
+    name: apm-agent-nodejs/apm-agent-nodejs-opentracing-mbp
+    display-name: APM Agent Node.js opentracing
+    description: APM Agent Node.js opentracing
