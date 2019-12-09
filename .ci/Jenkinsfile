@@ -75,7 +75,7 @@ def generateStep(Map params = [:]){
         deleteDir()
         unstash 'source'
         dir("${BASE_DIR}"){
-          sh(label: 'Run Tests', script: """.ci/scripts/docker-test.sh "${version}" "${tav}" "${edge}" """)
+          sh(label: 'Run Tests', script: """.ci/scripts/docker-test.sh "${version}" """)
         }
       } catch(e){
         error(e.toString())
