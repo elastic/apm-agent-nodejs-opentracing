@@ -1,1 +1,3 @@
 node_modules
+test-suite-output.tap
+junit-test-suite-*.xml
