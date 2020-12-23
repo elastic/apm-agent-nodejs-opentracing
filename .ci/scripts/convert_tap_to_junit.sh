@@ -1,24 +1,21 @@
 #!/usr/bin/env bash
 set -xueo pipefail
 
-HOME=/tmp
-PATH=${PATH}:$(pwd)/node_modules/.bin:${HOME}/.npm-global/bin
-export NPM_CONFIG_PREFIX=~/.npm-global
-npm install -g tap-junit
+NODE_VERSION=12
+USER_ID="$(id -u):$(id -g)"
 
-for tf in *-output.tap
-do
-  filename=$(basename ${tf} output.tap)
-  if [ -s "${tf}" ]; then
-    cat "${tf}" | tap-junit --package="Agent Node.js opentracing" > junit-${filename}-report.xml || true
-  fi
-done
+docker run --rm \
+  -v $(pwd):/usr/src/app \
+  -w /usr/src/app \
+  -u "${USER_ID}" \
+  "node:${NODE_VERSION}" \
+  sh -c 'export HOME=/tmp ; 
+    mkdir ~/.npm-global; 
+    npm config set prefix ~/.npm-global ; 
+    npm install tap-xunit -g ; 
+    for i in *-output.tap ; 
+    do 
+      cat ${i} | /tmp/.npm-global/bin/tap-xunit --package="Node.js" > ${i%.*}-junit.xml ; 
+    done
+    '
 
-for jf in junit-*-report.xml
-do
-  if [ -f ${jf} ] && [ ! -s ${jf} ]; then
-    rm ${jf}
-  fi
-done
-
-exit 0
