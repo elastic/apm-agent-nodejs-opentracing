@@ -82,7 +82,6 @@ def generateStep(Map params = [:]){
       } finally {
         dir("${BASE_DIR}"){
           tap2Junit(pattern: '*-output.tap', suffix: "${version}-junit.xml", package: 'Node.js', failNever: true)
-          archiveArtifacts artifacts: '*.junit.xml', followSymlinks: false
         }
       }
     }
