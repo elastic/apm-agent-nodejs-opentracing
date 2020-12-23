@@ -3,8 +3,7 @@
 An [OpenTracing](https://opentracing.io/) bridge for the [Elastic APM Node.js Agent](https://github.com/elastic/apm-agent-nodejs).
 
 [![npm](https://img.shields.io/npm/v/elastic-apm-node-opentracing.svg)](https://www.npmjs.com/package/elastic-apm-node-opentracing)
-[![Build Status](https://apm-ci.elastic.co/buildStatus/icon?job=apm-agent-nodejs%2Fapm-agent-nodejs-opentracing-mbp%2F3.x)](https://apm-ci.elastic.co/job/apm-agent-nodejs/job/apm-agent-nodejs-opentracing-mbp/job/master/)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+[![Test status](https://github.com/elastic/apm-agent-nodejs-opentracing/workflows/Test/badge.svg)](https://github.com/elastic/apm-agent-nodejs-opentracingactions)
 
 ## Prerequisites
 
