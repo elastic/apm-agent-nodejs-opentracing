@@ -80,7 +80,10 @@ def generateStep(Map params = [:]){
       } catch(e){
         error(e.toString())
       } finally {
-        tap2Junit(pattern: '*-output.tap', suffix: 'junit.xml', package: 'Node.js', failNever: true)
+        dir("${BASE_DIR}"){
+          tap2Junit(pattern: '*-output.tap', suffix: "${version}-junit.xml", package: 'Node.js', failNever: true)
+          archiveArtifacts artifacts: '*.junit.xml', followSymlinks: false
+        }
       }
     }
   }
