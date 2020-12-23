@@ -80,10 +80,9 @@ def generateStep(Map params = [:]){
       } catch(e){
         error(e.toString())
       } finally {
-        docker.image('node:12').inside("-v ${WORKSPACE}/${BASE_DIR}:/app"){
-          sh(label: 'Convert Test results to JUnit format', script: 'cd /app && .ci/scripts/convert_tap_to_junit.sh')
+        dir("${BASE_DIR}"){
+          tap2Junit(pattern: '*-output.tap', suffix: "${version}-junit.xml", package: 'Node.js', failNever: true)
         }
-        junit(allowEmptyResults: true, keepLongStdio: true, testResults: "${BASE_DIR}/**/junit-*.xml")
       }
     }
   }
