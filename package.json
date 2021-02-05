@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "An OpenTracing bridge for the Elastic APM Node.js Agent",
   "main": "lib/tracer.js",
+  "types": "types.d.ts",
   "directories": {
     "test": "test"
   },
