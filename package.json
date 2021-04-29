@@ -1,6 +1,6 @@
 {
   "name": "elastic-apm-node-opentracing",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An OpenTracing bridge for the Elastic APM Node.js Agent",
   "main": "lib/tracer.js",
   "types": "types.d.ts",
