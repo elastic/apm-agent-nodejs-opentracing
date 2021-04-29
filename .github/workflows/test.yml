@@ -11,8 +11,8 @@ jobs:
   test-vers:
     strategy:
       matrix:
-        # Test with the latest LTS.
-        node: ['14']
+        # Test with the latest supported release.
+        node: ['12']
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
