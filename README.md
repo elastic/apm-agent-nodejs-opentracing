@@ -1,5 +1,7 @@
 # Elastic APM Node.js OpenTracing Bridge
 
+**Note: This OpenTracing Bridge is deprecated in favor of the [Elastic APM Node.js OpenTelemetry Bridge](https://www.elastic.co/guide/en/apm/agent/nodejs/current/opentelemetry-bridge.html)**
+
 An [OpenTracing](https://opentracing.io/) bridge for the [Elastic APM Node.js Agent](https://github.com/elastic/apm-agent-nodejs).
 
 [![npm](https://img.shields.io/npm/v/elastic-apm-node-opentracing.svg)](https://www.npmjs.com/package/elastic-apm-node-opentracing)
